@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "842255431663",
+    "firebase_url": "https://ehealthcare-6a2cc.firebaseio.com",
+    "project_id": "ehealthcare-6a2cc",
+    "storage_bucket": "ehealthcare-6a2cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842255431663:android:20b269ace8ca7e9255681a",
+        "android_client_info": {
+          "package_name": "com.example.ehealthcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842255431663-ua06l833bppecnqu3m9g40drndqimu89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ehealthcare",
+            "certificate_hash": "6cee75274b4203b4bb6ee485b7502045004f1044"
+          }
+        },
+        {
+          "client_id": "842255431663-d05phie3hmlo3qo567ahcfdcjqlhh6rq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0KCwRtxYiK5sl3kzEOzDeZaStASrRRxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842255431663-d05phie3hmlo3qo567ahcfdcjqlhh6rq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
