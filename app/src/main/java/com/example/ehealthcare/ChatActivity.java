@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,8 +23,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ehealthcare.adapters.AdapterChat;
 import com.example.ehealthcare.models.ModelChat;
+import com.example.ehealthcare.models.ModelUsers;
+import com.example.ehealthcare.notifications.Data;
+import com.example.ehealthcare.notifications.Sender;
+import com.example.ehealthcare.notifications.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,13 +43,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class ChatActivity extends AppCompatActivity {
@@ -61,6 +77,8 @@ public class ChatActivity extends AppCompatActivity {
     String hisUid;
     String myUid;
     String hisImage;
+    private RequestQueue requestQueue;
+    private boolean notify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +97,8 @@ public class ChatActivity extends AppCompatActivity {
         userStatusTv= findViewById(R.id.userStatusTv);
         messageEt = findViewById(R.id.messageEt);
         sendBtn = findViewById(R.id.sendBtn);
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
      //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
        //linearLayoutManager.setStackFromEnd(true);
@@ -140,6 +160,7 @@ public class ChatActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notify = true;
                 String message = messageEt.getText().toString().trim();
 
                 if(TextUtils.isEmpty(message)){
@@ -147,6 +168,7 @@ public class ChatActivity extends AppCompatActivity {
                 }else{
                     sendMessage(message);
                 }
+                messageEt.setText("");
             }
         });
 
@@ -226,7 +248,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String message) {
+    private void sendMessage(final String message) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         String timestamp = String.valueOf(System.currentTimeMillis());
@@ -238,7 +260,73 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("isSeen",false);
         databaseReference.child("Chats").push().setValue(hashMap);
 
-        messageEt.setText("");
+
+
+        String msg = message;
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
+                if(notify){
+                    sendNotification(hisUid,user.getName(),message);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendNotification(final String hisUid, final String name, final String message) {
+           DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+           Query query = allTokens.orderByKey().equalTo(hisUid);
+           query.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+             for(DataSnapshot ds: dataSnapshot.getChildren()){
+                 Token token = ds.getValue(Token.class);
+                 Data data = new Data(myUid, name+": "+message,"New Message",hisUid,R.drawable.ic_default_img);
+                 Sender sender = new Sender(data,token.getToken());
+                 try {
+                     JSONObject senderJsonObj = new JSONObject(new Gson().toJson(sender));
+                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObj, new Response.Listener<JSONObject>() {
+                         @Override
+                         public void onResponse(JSONObject response) {
+                             Log.d("JSON_RESPONSE","onResponse:"+response.toString());
+                         }
+                     }, new Response.ErrorListener() {
+                         @Override
+                         public void onErrorResponse(VolleyError error) {
+                             Log.d("JSON_RESPONSE","onResponse:"+error.toString());
+                         }
+                     }){
+                         @Override
+                         public Map<String, String> getHeaders() throws AuthFailureError {
+
+                             Map<String,String> headers = new HashMap<>();
+                             headers.put("Content-Type","application/json");
+                             headers.put("Authorization","key=AAAAxBpV9-8:APA91bEsu88fo2qfffRSZUVUWc64aV0NSZPBAYaHdaGYDYRAxfpAv_xhVbvlnwu_B9ebQ-IaJT4s_WFqlmHAUPciUZczdOxn_gg3Jbvcl-It1hGRQm9n2fFD7dc5Bxxw_RmNn3qNWZZd");
+                             return headers;
+                         }
+                     };
+                     requestQueue.add(jsonObjectRequest);
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+
+             }
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError databaseError) {
+
+               }
+           });
+
     }
 
 
