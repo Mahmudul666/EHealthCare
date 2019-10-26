@@ -1,6 +1,7 @@
 package com.example.ehealthcare.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ehealthcare.R;
+import com.example.ehealthcare.ThereProfileActivity;
 import com.example.ehealthcare.models.ModelPost;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
       @Override
       public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
-        String uid = postList.get(i).getUid();
+        final String uid = postList.get(i).getUid();
           String uEmail = postList.get(i).getuEmail();
           String uName = postList.get(i).getuName();
           String uDp = postList.get(i).getuDp();
@@ -106,6 +109,15 @@ import androidx.recyclerview.widget.RecyclerView;
               }
           });
 
+          myHolder.profileLayout.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intent = new Intent(context, ThereProfileActivity.class);
+                  intent.putExtra("uid",uid);
+                  context.startActivity(intent);
+              }
+          });
+
       }
 
       @Override
@@ -119,6 +131,7 @@ import androidx.recyclerview.widget.RecyclerView;
     TextView uNameTv,pTimeTv,pTitleTv,pDescriptionTv,pLikesTv;
     ImageButton moreBtn;
     Button likeBtn,commentBtn,shareBtn;
+    LinearLayout profileLayout;
     public MyHolder (@NonNull View itemView) {
         super(itemView);
         uPictureIv = itemView.findViewById(R.id.uPictureIv);
@@ -132,6 +145,7 @@ import androidx.recyclerview.widget.RecyclerView;
         likeBtn = itemView.findViewById(R.id.likeBtn);
         commentBtn = itemView.findViewById(R.id.commentBtn);
         shareBtn = itemView.findViewById(R.id.shareBtn);
+        profileLayout = itemView.findViewById(R.id.profileLayout);
     }
   }
 }
