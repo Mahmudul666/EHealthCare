@@ -21,6 +21,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ehealthcare.AddPostActivity;
 import com.example.ehealthcare.R;
 import com.example.ehealthcare.ThereProfileActivity;
 import com.example.ehealthcare.models.ModelPost;
@@ -154,6 +155,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
           if(uid.equals(myUid)){
               popupMenu.getMenu().add(Menu.NONE,0,0,"Delete");
+              popupMenu.getMenu().add(Menu.NONE,1,0,"Edit");
           }
 
           popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -163,6 +165,11 @@ import androidx.recyclerview.widget.RecyclerView;
                   int id = menuitem.getItemId();
                   if(id==0){
                       beginDelete(pId,pImage);
+                  }else if(id==1){
+                      Intent intent = new Intent(context, AddPostActivity.class);
+                      intent.putExtra("key","editPost");
+                      intent.putExtra("editPostId",pId);
+                      context.startActivity(intent);
 
                   }
 
