@@ -2,13 +2,13 @@ package com.example.ehealthcare.models;
 
 public class ModelPost {
 
-    String pID, pTitle, pDescr,pImage,pTime,uid,uEmail,uDp,uName;
+    String pId, pTitle, pDescr,pImage,pTime,uid,uEmail,uDp,uName;
 
     public ModelPost() {
     }
 
-    public ModelPost(String pID, String pTitle, String pDescr, String pImage, String pTime, String uid, String uEmail, String uDp, String uName) {
-        this.pID = pID;
+    public ModelPost(String pId, String pTitle, String pDescr, String pImage, String pTime, String uid, String uEmail, String uDp, String uName) {
+        this.pId = pId;
         this.pTitle = pTitle;
         this.pDescr = pDescr;
         this.pImage = pImage;
@@ -19,12 +19,12 @@ public class ModelPost {
         this.uName = uName;
     }
 
-    public String getpID() {
-        return pID;
+    public String getpId() {
+        return pId;
     }
 
-    public void setpID(String pID) {
-        this.pID = pID;
+    public void setpId(String pId) {
+        this.pId = pId;
     }
 
     public String getpTitle() {
