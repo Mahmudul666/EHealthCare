@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -51,11 +52,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
     String myUid;
 
+      private DatabaseReference postsRef;
+    private DatabaseReference likeRef;
 
+
+    boolean mProcessLike=false;
     public AdapterPosts(Context context, List<ModelPost> postList) {
         this.context = context;
         this.postList = postList;
         myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        likeRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        postsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
     }
 
       @NonNull
@@ -67,7 +74,7 @@ import androidx.recyclerview.widget.RecyclerView;
       }
 
       @Override
-      public void onBindViewHolder(@NonNull final MyHolder myHolder, int i) {
+      public void onBindViewHolder(@NonNull final MyHolder myHolder, final int i) {
         final String uid = postList.get(i).getUid();
           String uEmail = postList.get(i).getuEmail();
           String uName = postList.get(i).getuName();
@@ -77,6 +84,7 @@ import androidx.recyclerview.widget.RecyclerView;
           String pDescription = postList.get(i).getpDescr();
           final String pImage = postList.get(i).getpImage();
           String pTimeStamp = postList.get(i).getpTime();
+          String pLikes = postList.get(i).getpLikes();
 
           Calendar calendar = Calendar.getInstance(Locale.getDefault());
           calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
@@ -86,6 +94,8 @@ import androidx.recyclerview.widget.RecyclerView;
           myHolder.pTimeTv.setText(pTime);
           myHolder.pTitleTv.setText(pTitle);
           myHolder.pDescriptionTv.setText(pDescription);
+          myHolder.pLikesTv.setText(pLikes + "Likes");
+          setLikes(myHolder,pId);
 
             if(pImage.equals("noImage")){
                 myHolder.pImageIv.setVisibility(View.GONE);
@@ -119,7 +129,31 @@ import androidx.recyclerview.widget.RecyclerView;
           myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  Toast.makeText(context,"like",Toast.LENGTH_SHORT).show();
+                  final int pLikes = Integer.parseInt(postList.get(i).getpLikes());
+                  mProcessLike = true;
+                  final String postIde = postList.get(i).getpId();
+                  likeRef.addValueEventListener(new ValueEventListener() {
+                      @Override
+                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                          if(mProcessLike){
+                              if(dataSnapshot.child(postIde).hasChild(myUid)){
+                                  postsRef.child(postIde).child("pLikes").setValue(""+(pLikes-1));
+                                  likeRef.child(postIde).child(myUid).removeValue();
+                                  mProcessLike=false;
+                              }else{
+                                  postsRef.child(postIde).child("pLikes").setValue(""+(pLikes+1));
+                                  likeRef.child(postIde).child(myUid).setValue("Liked");
+                                  mProcessLike = false;
+                              }
+                          }
+                      }
+
+                      @Override
+                      public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                      }
+                  });
+
               }
           });
           myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +177,29 @@ import androidx.recyclerview.widget.RecyclerView;
                   context.startActivity(intent);
               }
           });
+
+      }
+
+      private void setLikes(final MyHolder holder, final String postKey) {
+
+        likeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(postKey).hasChild(myUid)){
+                    holder.likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked,0,0,0);
+                    holder.likeBtn.setText("Liked");
+                }else{
+                    holder.likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_black,0,0,0);
+                    holder.likeBtn.setText("Like");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
       }
 

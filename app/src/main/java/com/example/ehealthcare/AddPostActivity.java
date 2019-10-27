@@ -188,6 +188,7 @@ public class AddPostActivity extends AppCompatActivity {
         hashMap.put("pDescr",description);
         hashMap.put("pImage","noImage");
 
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
         ref.child(editPostId)
                 .updateChildren(hashMap)
