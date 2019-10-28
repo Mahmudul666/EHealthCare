@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ehealthcare.AddPostActivity;
+import com.example.ehealthcare.PostDetailActivity;
 import com.example.ehealthcare.R;
 import com.example.ehealthcare.ThereProfileActivity;
 import com.example.ehealthcare.models.ModelPost;
@@ -85,6 +86,7 @@ import androidx.recyclerview.widget.RecyclerView;
           final String pImage = postList.get(i).getpImage();
           String pTimeStamp = postList.get(i).getpTime();
           String pLikes = postList.get(i).getpLikes();
+          String pComments = postList.get(i).getpComments();
 
           Calendar calendar = Calendar.getInstance(Locale.getDefault());
           calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
@@ -95,6 +97,7 @@ import androidx.recyclerview.widget.RecyclerView;
           myHolder.pTitleTv.setText(pTitle);
           myHolder.pDescriptionTv.setText(pDescription);
           myHolder.pLikesTv.setText(pLikes + "Likes");
+          myHolder.pCommentsTv.setText(pComments + "Comments");
           setLikes(myHolder,pId);
 
             if(pImage.equals("noImage")){
@@ -159,7 +162,9 @@ import androidx.recyclerview.widget.RecyclerView;
           myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  Toast.makeText(context,"comment",Toast.LENGTH_SHORT).show();
+                  Intent intent = new Intent(context, PostDetailActivity.class);
+                  intent.putExtra("postId",pId);
+                  context.startActivity(intent);
               }
           });
           myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +219,7 @@ import androidx.recyclerview.widget.RecyclerView;
               popupMenu.getMenu().add(Menu.NONE,0,0,"Delete");
               popupMenu.getMenu().add(Menu.NONE,1,0,"Edit");
           }
+          popupMenu.getMenu().add(Menu.NONE,2,0,"View Detail");
 
           popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
               @Override
@@ -228,6 +234,10 @@ import androidx.recyclerview.widget.RecyclerView;
                       intent.putExtra("editPostId",pId);
                       context.startActivity(intent);
 
+                  } else if (id==2){
+                      Intent intent = new Intent(context, PostDetailActivity.class);
+                      intent.putExtra("postId",pId);
+                      context.startActivity(intent);
                   }
 
                   return false;
@@ -324,7 +334,7 @@ import androidx.recyclerview.widget.RecyclerView;
       class MyHolder extends RecyclerView.ViewHolder {
 
     ImageView uPictureIv,pImageIv;
-    TextView uNameTv,pTimeTv,pTitleTv,pDescriptionTv,pLikesTv;
+    TextView uNameTv,pTimeTv,pTitleTv,pDescriptionTv,pLikesTv,pCommentsTv;
     ImageButton moreBtn;
     Button likeBtn,commentBtn,shareBtn;
     LinearLayout profileLayout;
@@ -337,6 +347,7 @@ import androidx.recyclerview.widget.RecyclerView;
         pTitleTv = itemView.findViewById(R.id.pTitleTv);
         pDescriptionTv = itemView.findViewById(R.id.pDescriptionTv);
         pLikesTv = itemView.findViewById(R.id.pLikesTv);
+        pCommentsTv = itemView.findViewById(R.id.pCommentsTv);
         moreBtn = itemView.findViewById(R.id.moreBtn);
         likeBtn = itemView.findViewById(R.id.likeBtn);
         commentBtn = itemView.findViewById(R.id.commentBtn);
