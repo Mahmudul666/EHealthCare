@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,20 +34,28 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity<LradioGroup> extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100 ;
     GoogleSignInClient mGoogleSignInClient;
     EditText mEmailEt,mPasswordEt;
     Button mLoginBtn;
+    private RadioButton LradioButtonAdmin, LradioButtonUser;
+    private RadioGroup LradioGroup;
+
     TextView mnothaveAcc, mRecoverpass;
     SignInButton mGoogleLoginBtn;
     private FirebaseAuth mAuth;
+    private DatabaseReference dDatabase, pDatabase;
     ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +76,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        dDatabase = FirebaseDatabase.getInstance().getReference().child("Doctors");
+        pDatabase = FirebaseDatabase.getInstance().getReference().child("Patients");
+        LradioGroup = (RadioGroup)findViewById(R.id.login_radio_group);
+        LradioButtonAdmin = findViewById(R.id.radio_btn_Admin);
+        LradioButtonUser = findViewById(R.id.radio_btn_User);
         mEmailEt = findViewById(R.id.emailE);
         mPasswordEt = findViewById(R.id.passwordE);
         mnothaveAcc = findViewById(R.id.nothave_accountTv);
@@ -172,10 +187,21 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            pd.dismiss();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
-                            finish();
+//                            pd.dismiss();
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
+//                            finish();
+
+                            //new code for test
+
+                            if (LradioButtonAdmin.isChecked()){
+                                CheckAdminExist();
+                            }else if(LradioButtonUser.isChecked()){
+                                CheckPatientExist();
+                            } else{
+                                Toast.makeText(LoginActivity.this, "User Does Not Exist In The Database ", Toast.LENGTH_LONG).show();
+                            }
+                            //finish code
                         }else{
                             pd.dismiss();
                             Toast.makeText(LoginActivity.this,"Authentication failed",Toast.LENGTH_SHORT).show();
@@ -188,6 +214,47 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void CheckPatientExist() {
+        final String uid = mAuth.getCurrentUser().getUid();
+        pDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(uid)){
+                    startActivity(new Intent( LoginActivity.this, PatientDashboardActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void CheckAdminExist() {
+
+        final String uid = mAuth.getCurrentUser().getUid();
+        dDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(uid)){
+                    startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
+                   finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     @Override

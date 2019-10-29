@@ -100,6 +100,11 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference reference = database.getReference("Users");
                             reference.child(uid).setValue(hashMap);
+
+                            FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+                            DatabaseReference reference1 = database.getReference("Doctors");
+                            reference1.child(uid).setValue(hashMap);
+
                             Toast.makeText(RegisterActivity.this,"Registered..\n"+user.getEmail(),Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                             finish();
