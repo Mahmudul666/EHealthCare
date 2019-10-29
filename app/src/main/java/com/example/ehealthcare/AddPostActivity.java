@@ -457,6 +457,8 @@ public class AddPostActivity extends AppCompatActivity {
             hashMap.put("pDescr",description);
             hashMap.put("pImage","noImage");
             hashMap.put("pTime",timeStamp);
+            hashMap.put("pLikes","0");
+            hashMap.put("pComments","0");
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
             ref.child(timeStamp).setValue(hashMap)

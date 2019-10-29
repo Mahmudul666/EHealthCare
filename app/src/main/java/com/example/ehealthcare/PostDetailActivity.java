@@ -153,7 +153,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                 ModelComment modelComments = ds.getValue(ModelComment.class);
                 commentsList.add(modelComments);
-                adapterComments = new AdapterComments(getApplicationContext(),commentsList);
+                adapterComments = new AdapterComments(getApplicationContext(),commentsList,myUid,postId);
                 recyclerView.setAdapter(adapterComments);
 
                 }
