@@ -1,7 +1,6 @@
 package com.example.ehealthcare.adapters;
 
 import android.annotation.TargetApi;
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -44,7 +43,6 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
   public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder>{

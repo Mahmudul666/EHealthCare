@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ehealthcare.ChatActivity;
 import com.example.ehealthcare.ThereProfileActivity;
@@ -79,6 +78,8 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
 
                     }
                 });
+
+                builder.create().show();
 
 
             }

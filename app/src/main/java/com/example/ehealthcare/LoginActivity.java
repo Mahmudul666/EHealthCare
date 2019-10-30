@@ -187,7 +187,7 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-//                            pd.dismiss();
+                            pd.dismiss();
 //                            FirebaseUser user = mAuth.getCurrentUser();
 //                            startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
 //                            finish();

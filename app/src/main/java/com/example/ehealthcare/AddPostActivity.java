@@ -46,7 +46,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class AddPostActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
