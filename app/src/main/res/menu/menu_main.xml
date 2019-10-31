@@ -12,4 +12,8 @@
         android:title="Add Post"
         app:showAsAction="always"
         android:icon="@drawable/ic_add_white"/>
+    <item android:id="@+id/action_add_reminder"
+        android:title="Add Reminder"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_reminder"/>
 </menu>

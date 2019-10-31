@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -36,8 +37,8 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
         BottomNavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
-        actionBar.setTitle("Home");
-        HomeFragment fragment1 = new HomeFragment();
+        actionBar.setTitle("Home Patient");
+        PatientHomeFragment fragment1 = new PatientHomeFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content,fragment1,"");
         ft1.commit();
@@ -66,15 +67,15 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()){
                 case R.id.nav_home:
-                    actionBar.setTitle("Home");
-                    HomeFragment fragment1 = new HomeFragment();
+                    actionBar.setTitle("Home Patient");
+                    PatientHomeFragment fragment1 = new PatientHomeFragment();
                     FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                     ft1.replace(R.id.content,fragment1,"");
                     ft1.commit();
                     return true;
                 case R.id.nav_profile:
                     actionBar.setTitle("Profile");
-                    ProfileFragment fragment2 = new ProfileFragment();
+                    PatientProfileFragment fragment2 = new PatientProfileFragment();
                     FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                     ft2.replace(R.id.content,fragment2,"");
                     ft2.commit();
@@ -123,6 +124,8 @@ public class PatientDashboardActivity extends AppCompatActivity {
         checkUserStatus();
         super.onStart();
     }
+
+
 
 
 }

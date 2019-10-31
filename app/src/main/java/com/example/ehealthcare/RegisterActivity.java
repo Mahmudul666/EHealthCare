@@ -102,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                             reference.child(uid).setValue(hashMap);
 
                             FirebaseDatabase database1 = FirebaseDatabase.getInstance();
-                            DatabaseReference reference1 = database.getReference("Doctors");
+                            DatabaseReference reference1 = database.getReference("Patients");
                             reference1.child(uid).setValue(hashMap);
 
                             Toast.makeText(RegisterActivity.this,"Registered..\n"+user.getEmail(),Toast.LENGTH_SHORT).show();

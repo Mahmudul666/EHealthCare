@@ -15,26 +15,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="android:appComponentFactory">
-        <activity android:name="com.example.ehealthcare.PatientDashboardActivity"></activity>
-        <activity android:name="com.example.ehealthcare.PostDetailActivity" />
-        <activity android:name="com.example.ehealthcare.ThereProfileActivity" />
-        <activity android:name="com.example.ehealthcare.AddPostActivity" />
+        <activity android:name=".ReminderActivity"></activity>
+        <activity android:name=".PatientDashboardActivity" />
+        <activity android:name=".PostDetailActivity" />
+        <activity android:name=".ThereProfileActivity" />
+        <activity android:name=".AddPostActivity" />
         <activity
-            android:name="com.example.ehealthcare.ChatActivity"
+            android:name=".ChatActivity"
             android:theme="@style/AppThemeNo" />
-        <activity android:name="com.example.ehealthcare.LoginActivity" />
-        <activity android:name="com.example.ehealthcare.DashboardActivity">
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.ehealthcare.RegisterActivity" />
-        <activity android:name="com.example.ehealthcare.MainActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
 
         <service
-            android:name="com.example.ehealthcare.notifications.FirebaseMessaging"
+            android:name=".notifications.FirebaseMessaging"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

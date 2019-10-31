@@ -8,6 +8,7 @@
     tools:context=".LoginActivity">
 
     <TextView
+        android:id="@+id/logintext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -19,29 +20,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/login_radio_group"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+
+        android:layout_marginTop="150dp"
+
+        android:layout_below="@+id/logintext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         >
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textColor="@color/colorBlack"
+    android:layout_marginLeft="60dp"
+    android:text="Please Select your UserType"
+   />
 
         <RadioButton
             android:id="@+id/radio_btn_Admin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:text="Admin" />
+            android:layout_marginLeft="90dp"
+            android:text="Doctor" />
 
         <RadioButton
             android:id="@+id/radio_btn_User"
+            android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:text="User" />
+            android:text="Patient" />
     </RadioGroup>
 
 

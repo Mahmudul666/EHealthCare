@@ -195,7 +195,7 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
                             //new code for test
 
                             if (LradioButtonAdmin.isChecked()){
-                                CheckAdminExist();
+                                CheckDoctorExist();
                             }else if(LradioButtonUser.isChecked()){
                                 CheckPatientExist();
                             } else{
@@ -222,6 +222,7 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(uid)){
+                    Toast.makeText(LoginActivity.this,"Login sucessful as Patient",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent( LoginActivity.this, PatientDashboardActivity.class));
                     finish();
                 }
@@ -235,13 +236,14 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
 
     }
 
-    private void CheckAdminExist() {
+    private void CheckDoctorExist() {
 
         final String uid = mAuth.getCurrentUser().getUid();
         dDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(uid)){
+                    Toast.makeText(LoginActivity.this,"Login Sucessful as Doctor",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
                    finish();
                 }
@@ -312,9 +314,9 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
                             }
 
 
-                            Toast.makeText(LoginActivity.this,""+user.getEmail(),Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
-                            finish();
+//                            Toast.makeText(LoginActivity.this,""+user.getEmail(),Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
+//                            finish();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
