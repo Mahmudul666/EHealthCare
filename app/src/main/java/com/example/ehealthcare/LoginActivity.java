@@ -120,8 +120,10 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                    startActivityForResult(signInIntent, RC_SIGN_IN);
+//                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                Toast.makeText(LoginActivity.this, "Will be Implemented Soon ", Toast.LENGTH_LONG).show();
+
 
             }
         });

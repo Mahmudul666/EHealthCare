@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="android:appComponentFactory">
-        <activity android:name=".ReminderActivity"></activity>
+        <activity android:name=".Alarm_Main"></activity>
         <activity android:name=".PatientDashboardActivity" />
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".ThereProfileActivity" />
@@ -23,25 +23,32 @@
         <activity
             android:name=".ChatActivity"
             android:theme="@style/AppThemeNo" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".DashboardActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DashboardActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
+
+        <provider
+            android:name=".data.AlarmReminderProvider"
+            android:authorities="com.example.ehealthcare"
+            android:exported="false" />
 
         <service
             android:name=".notifications.FirebaseMessaging"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver android:name=".AlertReceiver" />
     </application>
 
 </manifest>
