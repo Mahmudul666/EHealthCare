@@ -15,7 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="android:appComponentFactory">
-        <activity android:name=".Alarm_Main"></activity>
+        <activity android:name=".BMI_Calculator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".Alarm_Main" />
         <activity android:name=".PatientDashboardActivity" />
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".ThereProfileActivity" />
@@ -24,11 +32,7 @@
             android:name=".ChatActivity"
             android:theme="@style/AppThemeNo" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".DashboardActivity" />
         <activity android:name=".RegisterActivity" />

@@ -9,6 +9,9 @@
     <string name="title_activity_edit_reminder">Edit Reminder</string>
     <string name="title_activity_licenses">Licenses</string>
 
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+
     <string name="add_reminder">Reminder</string>
     <string name="details">Details</string>
     <string name="date">Date</string>
@@ -45,6 +48,15 @@
     <string name="editor_update_reminder_failed">Error with updating reminder</string>
 
     <string name="reminder_title">AlarmReminder</string>
+
+    <string name="very_severly_underweight"> Very Severly UnderWeight</string>
+    <string name="severly_underweight">Severly UnderWeight</string>
+    <string name="underweight"> UnderWeight</string>
+    <string name="normal">Normal</string>
+    <string name="OverWight">Severly OverWeight</string>
+    <string name="Obese_class_i">Obese Class I (Moderate Obese)</string>
+    <string name="Obese_class_ii">Obese Class II (Severly Obese)</string>
+    <string name="Obese_class_iii">Obese Class III (Very Severly Obese)</string>
 
 
 </resources>
