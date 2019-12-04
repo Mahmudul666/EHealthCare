@@ -24,9 +24,7 @@
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".ThereProfileActivity" />
         <activity android:name=".AddPostActivity" />
-        <activity
-            android:name=".ChatActivity"
-            android:theme="@style/AppThemeNo" />
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,19 +36,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
 
-        <provider
-            android:name=".data.AlarmReminderProvider"
-            android:authorities="com.example.ehealthcare"
-            android:exported="false" />
 
-        <service
-            android:name=".notifications.FirebaseMessaging"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <receiver android:name=".AlertReceiver" />
     </application>

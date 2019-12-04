@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ehealthcare.ChatActivity;
+
 import com.example.ehealthcare.ThereProfileActivity;
 import com.example.ehealthcare.models.ModelUsers;
 import com.example.ehealthcare.R;
@@ -61,7 +61,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
+                builder.setItems(new String[]{"Profile"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
@@ -69,12 +69,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
                             intent.putExtra("uid",hisUID);
                             context.startActivity(intent);
                         }
-                        if(which==1){
-                            Intent intent = new Intent(context, ChatActivity.class);
-                            intent.putExtra("hisUid",hisUID);
-                            context.startActivity(intent);
-
-                        }
+//
 
                     }
                 });
