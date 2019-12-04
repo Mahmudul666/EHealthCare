@@ -16,4 +16,9 @@
         android:title="Add Reminder"
         app:showAsAction="always"
         android:icon="@drawable/ic_add_reminder"/>
+    <item android:id="@+id/action_clculate_bmi"
+        android:title="Camculate BMI"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_bmi"/>
+
 </menu>
