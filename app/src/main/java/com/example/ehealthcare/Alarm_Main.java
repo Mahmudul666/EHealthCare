@@ -8,12 +8,14 @@ import android.content.Intent;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -38,8 +40,14 @@ public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.On
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String setTitle = reminderTitle.getText().toString().trim();
+                if(!TextUtils.isEmpty(setTitle)){
                 DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
+                }else{
+                    Toast.makeText(Alarm_Main.this,"Please chose a reminder title",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -64,12 +72,17 @@ public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.On
         startAlarm(c);
     }
 
+
+
     private void updateTimeText(Calendar c) {
         String setTitle = reminderTitle.getText().toString().trim();
-        String timeText = setTitle + " ";
-        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
-        reminderTitle.setText("");
-        mTextView.setText(timeText);
+            String timeText = setTitle + " ";
+            timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+            reminderTitle.setText("");
+            reminderTitle.setEnabled(false);
+            mTextView.setText(timeText);
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -89,7 +102,7 @@ public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.On
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-
+        reminderTitle.setEnabled(true);
         alarmManager.cancel(pendingIntent);
         mTextView.setText("Alarm canceled");
     }

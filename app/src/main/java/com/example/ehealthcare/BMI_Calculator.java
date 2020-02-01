@@ -150,6 +150,7 @@ public class BMI_Calculator extends AppCompatActivity {
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_reminder).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_clculate_bmi).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -183,7 +184,7 @@ public class BMI_Calculator extends AppCompatActivity {
         }else{
             bmiLable = getString(R.string.Obese_class_iii);
         }
-        bmiLable = "Your Current Result:"+"\n"+bmi + "\n" + bmiLable;
+        bmiLable = "\n"+bmi + "\n" + bmiLable;
         bresult.setText(bmiLable);
     }
 }
