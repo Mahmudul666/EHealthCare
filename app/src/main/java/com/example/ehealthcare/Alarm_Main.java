@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,6 +24,7 @@ import androidx.fragment.app.DialogFragment;
 
 public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     private TextView mTextView;
+    private EditText reminderTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.On
         setContentView(R.layout.activity_alarm__main);
 
         mTextView = findViewById(R.id.textView);
+        reminderTitle = findViewById(R.id.notificatioTitle);
 
         Button buttonTimePicker = findViewById(R.id.button_timepicker);
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +65,10 @@ public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.On
     }
 
     private void updateTimeText(Calendar c) {
-        String timeText = "Alarm set for: ";
+        String setTitle = reminderTitle.getText().toString().trim();
+        String timeText = setTitle + " ";
         timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
-
+        reminderTitle.setText("");
         mTextView.setText(timeText);
     }
 

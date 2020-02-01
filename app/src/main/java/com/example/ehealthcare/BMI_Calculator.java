@@ -99,10 +99,6 @@ public class BMI_Calculator extends AppCompatActivity {
 
     }
 
-    private void viewResult(){
-
-
-    }
 
     private void addResult(){
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
