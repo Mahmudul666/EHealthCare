@@ -47,13 +47,13 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     EditText mEmailEt,mPasswordEt;
     Button mLoginBtn;
-    private RadioButton LradioButtonAdmin, LradioButtonUser;
+    private RadioButton LradioButtonAdmin,LradioButtonDoctor, LradioButtonUser;
     private RadioGroup LradioGroup;
 
     TextView mnothaveAcc, mRecoverpass;
     SignInButton mGoogleLoginBtn;
     private FirebaseAuth mAuth;
-    private DatabaseReference dDatabase, pDatabase;
+    private DatabaseReference dDatabase, pDatabase,aDatabase;
     ProgressDialog pd;
 
     @Override
@@ -78,8 +78,10 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         dDatabase = FirebaseDatabase.getInstance().getReference().child("Doctors");
         pDatabase = FirebaseDatabase.getInstance().getReference().child("Patients");
+        aDatabase = FirebaseDatabase.getInstance().getReference().child("Admin");
         LradioGroup = (RadioGroup)findViewById(R.id.login_radio_group);
         LradioButtonAdmin = findViewById(R.id.radio_btn_Admin);
+        LradioButtonDoctor = findViewById(R.id.radio_btn_doctor);
         LradioButtonUser = findViewById(R.id.radio_btn_User);
         mEmailEt = findViewById(R.id.emailE);
         mPasswordEt = findViewById(R.id.passwordE);
@@ -196,11 +198,15 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
 
                             //new code for test
 
-                            if (LradioButtonAdmin.isChecked()){
+                            if (LradioButtonDoctor.isChecked()){
                                 CheckDoctorExist();
                             }else if(LradioButtonUser.isChecked()){
                                 CheckPatientExist();
-                            } else{
+                            } else if(LradioButtonAdmin.isChecked()){
+                                CheckAdminExist();
+                            }
+
+                            else{
                                 Toast.makeText(LoginActivity.this, "User Does Not Exist In The Database ", Toast.LENGTH_LONG).show();
                             }
                             //finish code
@@ -214,6 +220,25 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
                 Toast.makeText(LoginActivity.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void CheckAdminExist() {
+        final String uid = mAuth.getCurrentUser().getUid();
+        aDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(uid)){
+                    Toast.makeText(LoginActivity.this,"Login sucessful as Admin",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent( LoginActivity.this, AdminDashboardActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

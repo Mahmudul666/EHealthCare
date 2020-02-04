@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/login_radio_group"
 
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="115dp"
 
         android:layout_below="@+id/logintext"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,9 +34,15 @@
     android:layout_marginLeft="60dp"
     android:text="Please Select your UserType"
    />
-
         <RadioButton
             android:id="@+id/radio_btn_Admin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="90dp"
+            android:text="Admin" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_doctor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="90dp"

@@ -21,18 +21,22 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     private TextView mTextView;
     private EditText reminderTitle;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm__main);
-
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         mTextView = findViewById(R.id.textView);
         reminderTitle = findViewById(R.id.notificatioTitle);
 
@@ -107,7 +111,11 @@ public class Alarm_Main extends AppCompatActivity implements TimePickerDialog.On
         mTextView.setText("Alarm canceled");
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

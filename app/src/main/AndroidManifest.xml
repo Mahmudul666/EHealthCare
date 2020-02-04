@@ -15,16 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="android:appComponentFactory">
-        <activity android:name=".BMI_Calculator">
-
+        <activity android:name=".AdminDashboardActivity">
 
         </activity>
+        <activity android:name=".DoctorRegister" />
+        <activity android:name=".AdminRegister">
+
+        </activity>
+        <activity android:name=".BMI_Calculator" />
         <activity android:name=".Alarm_Main" />
         <activity android:name=".PatientDashboardActivity" />
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".ThereProfileActivity" />
         <activity android:name=".AddPostActivity" />
-
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,8 +38,6 @@
         <activity android:name=".DashboardActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-
-
 
         <receiver android:name=".AlertReceiver" />
     </application>

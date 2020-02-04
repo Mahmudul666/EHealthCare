@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BMI_Calculator extends AppCompatActivity {
@@ -32,6 +33,7 @@ public class BMI_Calculator extends AppCompatActivity {
     private EditText bweight;
     private TextView bresult,brecord;
     private Button bcalculate,bmidata,bview;
+    ActionBar actionBar;
 
 
     @Override
@@ -44,6 +46,9 @@ public class BMI_Calculator extends AppCompatActivity {
 
         checkUserStatus();
         setContentView(R.layout.activity_bmi__calculator);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         bheight = (EditText)findViewById(R.id.txt_bmi_height);
         bweight = (EditText)findViewById(R.id.txt_bmi_weight);
         bresult= (TextView)findViewById(R.id.txt_bmi_result);
@@ -143,6 +148,8 @@ public class BMI_Calculator extends AppCompatActivity {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
