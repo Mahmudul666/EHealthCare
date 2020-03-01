@@ -157,6 +157,8 @@ public class BMI_Calculator extends AppCompatActivity {
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_reminder).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.add_doctor).setVisible(false);
+        menu.findItem(R.id.add_patient).setVisible(false);
         menu.findItem(R.id.action_clculate_bmi).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }

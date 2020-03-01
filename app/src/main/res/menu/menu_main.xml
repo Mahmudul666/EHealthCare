@@ -20,5 +20,13 @@
         android:title="Camculate BMI"
         app:showAsAction="always"
         android:icon="@drawable/ic_bmi"/>
+    <item android:id="@+id/add_patient"
+        android:title="Add-Patient"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_patient"/>
+    <item android:id="@+id/add_doctor"
+        android:title="Add_doctor"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_doctor"/>
 
 </menu>

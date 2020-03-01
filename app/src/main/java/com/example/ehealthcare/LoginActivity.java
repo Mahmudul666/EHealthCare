@@ -51,7 +51,7 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
     private RadioGroup LradioGroup;
 
     TextView mnothaveAcc, mRecoverpass;
-    SignInButton mGoogleLoginBtn;
+    //SignInButton mGoogleLoginBtn;
     private FirebaseAuth mAuth;
     private DatabaseReference dDatabase, pDatabase,aDatabase;
     ProgressDialog pd;
@@ -87,7 +87,7 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
         mPasswordEt = findViewById(R.id.passwordE);
         mnothaveAcc = findViewById(R.id.nothave_accountTv);
         mRecoverpass = findViewById(R.id.recoveryPassTv);
-        mGoogleLoginBtn = findViewById(R.id.googleLoginBtn);
+//        mGoogleLoginBtn = findViewById(R.id.googleLoginBtn);
         mLoginBtn = findViewById(R.id.login_Btn);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,17 +118,17 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
             }
         });
 
-        mGoogleLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//                    startActivityForResult(signInIntent, RC_SIGN_IN);
-                Toast.makeText(LoginActivity.this, "Will be Implemented Soon ", Toast.LENGTH_LONG).show();
-
-
-            }
-        });
+//        mGoogleLoginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+////                    startActivityForResult(signInIntent, RC_SIGN_IN);
+//                Toast.makeText(LoginActivity.this, "Will be Implemented Soon ", Toast.LENGTH_LONG).show();
+//
+//
+//            }
+//        });
         pd = new ProgressDialog(this);
 
     }
@@ -192,11 +192,6 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             pd.dismiss();
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            startActivity(new Intent( LoginActivity.this, DashboardActivity.class));
-//                            finish();
-
-                            //new code for test
 
                             if (LradioButtonDoctor.isChecked()){
                                 CheckDoctorExist();
@@ -207,7 +202,8 @@ public class LoginActivity<LradioGroup> extends AppCompatActivity {
                             }
 
                             else{
-                                Toast.makeText(LoginActivity.this, "User Does Not Exist In The Database ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "User Does Not Exist In The Database ",
+                                        Toast.LENGTH_LONG).show();
                             }
                             //finish code
                         }else{
